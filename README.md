@@ -1,0 +1,2 @@
+# americor
+Example
