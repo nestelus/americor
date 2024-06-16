@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "55bf7d2e-74cc-4ce6-a694-e18b88a2f10f",
+		"name": "americor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "healt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createClient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Jonh\",\n    \"last_name\": \"Smith\",\n    \"age\": \"41\",\n    \"city\": \"Des Moines\",\n    \"state\": \"Iova\",\n    \"zip\": \"125488\",\n    \"ssn\": \"123-45-6287\",\n    \"fico\": \"450\",\n    \"income\": \"2500\",\n    \"email\": \"aaa@example.com\",\n    \"phone\": \"+180088888888\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/client/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"client",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "issueLoan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"First main credit\",\n    \"term\": \"60\",\n    \"rate\": \"12,4\",\n    \"amount\": \"120000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/loan/issue/123-45-6281",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"loan",
+						"issue",
+						"123-45-6281"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateClient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Jonh\",\n    \"last_name\": \"Smith\",\n    \"age\": 41,\n    \"city\": \"Des Moines\",\n    \"state\": \"CA\",\n    \"zip\": \"125488\",\n    \"fico\": \"400\",\n    \"income\": \"1500\",\n    \"phone\": \"+180088888888\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/client/update/123-45-6287",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"client",
+						"update",
+						"123-45-6287"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewClient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Jonh\",\n    \"last_name\": \"Smith\",\n    \"age\": \"41\",\n    \"city\": \"Des Moines\",\n    \"state\": \"CA\",\n    \"zip\": \"125488\",\n    \"fico\": \"300\",\n    \"income\": \"1500\",\n    \"phoneNumber\": \"+180088888888\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/client/view/123-45-6281",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"client",
+						"view",
+						"123-45-6281"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8182",
+			"type": "default"
+		}
+	]
+}
