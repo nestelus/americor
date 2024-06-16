@@ -1,34 +1,38 @@
 <?php
-// src/Application/Services/LoanService.php
+
+declare(strict_types=1);
+
 namespace App\Application\Services;
 
-use App\Domain\Entities\Client;
-use App\Domain\Entities\Loan;
-use App\Domain\Repositories\ClientRepositoryInterface;
-use App\Domain\Repositories\LoanRepositoryInterface;
+use App\Domains\Clients\Entities\Client;
+use App\Domains\Loans\Entities\Loan;
+use App\Domains\Loans\Repositories\LoanRepositoryInterface;
 use App\Infrastructure\Notifications\EmailNotifier;
 use App\Infrastructure\Notifications\SmsNotifier;
 
-class LoanService {
+class LoanService
+{
     private LoanRepositoryInterface $loanRepository;
-    private ClientRepositoryInterface $clientRepository;
     private EmailNotifier $emailNotifier;
     private SmsNotifier $smsNotifier;
 
     public function __construct(
         LoanRepositoryInterface $loanRepository,
-        ClientRepositoryInterface $clientRepository,
         EmailNotifier $emailNotifier,
         SmsNotifier $smsNotifier
     ) {
         $this->loanRepository = $loanRepository;
-        $this->clientRepository = $clientRepository;
         $this->emailNotifier = $emailNotifier;
         $this->smsNotifier = $smsNotifier;
     }
 
-    public function checkEligibility(Client $client): bool {
-        if ($client->getFico()->getScore() <= 500) {
+    /**
+     * @param  Client  $client
+     * @return bool
+     */
+    public function checkEligibility(Client $client): bool
+    {
+        if ($client->getFico() <= 500) {
             return false;
         }
         if ($client->getIncome() < 1000) {
@@ -47,26 +51,40 @@ class LoanService {
         return true;
     }
 
-    public function issueLoan(Client $client, array $loanData): Loan {
-        if (!$this->checkEligibility($client)) {
-            throw new \Exception("Client is not eligible for a loan");
-        }
-        $interestRate = $loanData['interestRate'];
+    /**
+     * @param  Client  $client
+     * @param  array  $loanData
+     * @return Loan
+     * @throws \Exception
+     */
+    public function issueLoan(Client $client, array $loanData): Loan
+    {
+        $status = $this->checkEligibility($client);
+
+        $interestRate = $loanData['rate'];
         if ($client->getAddress()->getState() === 'CA') {
             $interestRate += 11.49;
         }
         $loan = new Loan(
-            $loanData['productName'],
-            $loanData['term'],
-            $interestRate,
-            $loanData['amount']
+            title: $loanData['title'],
+            term: (string)$loanData['term'],
+            rate: (string)$interestRate,
+            amount: (string)$loanData['amount'],
+            owner: $client,
+            status: $status
         );
-        $this->loanRepository.save($loan);
+        $this->loanRepository->save($loan);
         $this->notifyClient($client, $loan);
         return $loan;
     }
 
-    private function notifyClient(Client $client, Loan $loan): void {
+    /**
+     * @param  Client  $client
+     * @param  Loan  $loan
+     * @return void
+     */
+    private function notifyClient(Client $client, Loan $loan): void
+    {
         $this->emailNotifier->sendLoanApproval($client, $loan);
         $this->smsNotifier->sendLoanApproval($client, $loan);
     }

@@ -11,11 +11,18 @@ class ClientService
 {
     private ClientRepositoryInterface $clientRepository;
 
+    /**
+     * @param  ClientRepositoryInterface  $clientRepository
+     */
     public function __construct(ClientRepositoryInterface $clientRepository)
     {
         $this->clientRepository = $clientRepository;
     }
 
+    /**
+     * @param  array  $data
+     * @return Client
+     */
     public function createClient(array $data): Client
     {
         $client = Client::create($data);
@@ -23,11 +30,20 @@ class ClientService
         return $client;
     }
 
+    /**
+     * @param  string  $ssn
+     * @param  array  $data
+     * @return void
+     */
     public function updateClient(string $ssn, array $data): void
     {
         $this->clientRepository->update($ssn, $data);
     }
 
+    /**
+     * @param  string  $ssn
+     * @return Client
+     */
     public function getClientById(string $ssn): Client
     {
         return $this->clientRepository->getBySsn($ssn);

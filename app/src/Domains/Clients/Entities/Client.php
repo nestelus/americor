@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domains\Clients\Entities;
 
-use App\Domains\Clients\ValueObjects\Address;
-use App\Domains\Clients\ValueObjects\Name;
+use App\Domains\ValueObjects\Address;
+use App\Domains\ValueObjects\Name;
 
 class Client
 {

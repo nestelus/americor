@@ -1,0 +1,47 @@
+parameters:
+    level: 9
+#    ignoreErrors:
+#        -
+#            message: "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
+#            reportUnmatched: false
+#
+#        -
+#            message: "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
+#            reportUnmatched: false
+#
+#        # Не может найти переопределение статических методов find(): CustomQuery
+#        -
+#            message: '#Call to an undefined method *#'
+#            reportUnmatched: false
+#
+#        # игнорируем $this->context во вьшках
+#        -
+#            message: '#^Access to an undefined property yii\\base\\ViewContextInterface[a-zA-Z0-9::a-zA-Z]#'
+#            reportUnmatched: false
+#
+#        # какой-то глюк phpstan - там точно есть объект интерфейса но он предлагает проверить на null
+#        -
+#            message: '#^Cannot call method [a-zA-Z0-9\\_\\\\:\\(\\)]+ on tanuki\\common\\components\\translatable\\Interfaces\\LanguageInterface#'
+#            reportUnmatched: false
+#
+#        # для всех свойств-массивов предлагается явно указывать тип, нам это не нужно
+#        -
+#            message: "#Property [a-zA-Z0-9\\_\\\\:\\(\\)\\$]+ type has no value type specified in iterable type array#"
+#            reportUnmatched: false
+#        -
+#            message: "#Match expression does not handle remaining value: string#"
+#            reportUnmatched: false
+#
+#        # для yii\base\DynamicModel
+#        -
+#            message: '#Access to an undefined property yii\\base\\DynamicModel::\$[a-zA-Z0-9::a-zA-Z]#'
+#            reportUnmatched: false
+
+    scanDirectories:
+        - src
+        - config
+    paths:
+        - autocompletion.php
+        - src
+        - config
+

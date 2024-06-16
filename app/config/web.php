@@ -43,6 +43,7 @@ $config = [
             'rules'           => [
                 'PUT client/update/<ssn:[A-z0-9-]+>' => 'client/update',
                 'GET client/view/<ssn:[A-z0-9-]+>'   => 'client/view',
+                'POST loan/issue/<ssn:[A-z0-9-]+>'   => 'loan/issue',
                 [
                     'class'      => UrlRule::class,
                     'controller' => ['client', 'loan']

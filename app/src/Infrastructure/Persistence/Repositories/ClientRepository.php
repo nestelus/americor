@@ -8,6 +8,7 @@ use App\Domains\Clients\Entities\Client;
 use App\Domains\Clients\Repositories\ClientRepositoryInterface;
 use App\Infrastructure\Persistence\Models\Client as PersistenceClient;
 use yii\db\Exception;
+use yii\web\NotFoundHttpException;
 
 class ClientRepository implements ClientRepositoryInterface
 {
@@ -35,7 +36,7 @@ class ClientRepository implements ClientRepositoryInterface
         $persistenceClient = PersistenceClient::findOne(['ssn' => $ssn]);
 
         if (!$persistenceClient) {
-            throw new \Exception("Client not found");
+            throw new NotFoundHttpException("Client not found");
         }
 
         return Client::create($persistenceClient->toArray());
@@ -49,7 +50,7 @@ class ClientRepository implements ClientRepositoryInterface
     {
         $persistenceClient = PersistenceClient::findOne(['ssn' => $ssn]);
         if (!$persistenceClient) {
-            throw new \Exception("Client not found");
+            throw new NotFoundHttpException("Client not found");
         }
         $persistenceClient->updateAttributes($data);
         $persistenceClient->save();

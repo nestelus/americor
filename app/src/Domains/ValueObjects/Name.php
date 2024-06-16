@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\Clients\ValueObjects;
+namespace App\Domains\ValueObjects;
 
 final class Name
 {
