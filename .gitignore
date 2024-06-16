@@ -1,0 +1,4 @@
+# phpstorm project files
+.idea
+/docker/database/
+/app/log/

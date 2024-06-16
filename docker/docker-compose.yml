@@ -1,0 +1,37 @@
+name: americor
+services:
+  app:
+    container_name: app
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    environment:
+      - PHP_IDE_CONFIG:'serverName=americor'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports: 
+      - "8182:80"
+    networks: 
+      - americor
+    depends_on: 
+      - db    
+    volumes:
+      - "../app:/var/www/app"
+      - "./conf/nginx:/etc/nginx/sites-available"      
+
+  db:
+    container_name: db
+    image: mysql:latest
+
+    networks: 
+      - americor
+    ports:
+      - "32036:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: yii-db
+    volumes:
+      - "./database:/var/lib/mysql"
+networks:
+  americor:
+    driver: bridge
